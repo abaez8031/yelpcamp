@@ -23,10 +23,18 @@ router.post("/register", wrapAsync(async (req, res) => {
 
 router.get("/login", (req,res) => {
   res.render("users/login")
-})
+});
 
 router.post("/login", passport.authenticate("local", { failureFlash: true, failureRedirect: "/login"}), async(req,res) => {
   req.flash("success", "welcome back!");
+  res.redirect("/campgrounds")
+});
+
+router.get("/logout", (req,res) => {
+  req.logout(function(err) {
+    if(err) return next(err)
+  });
+  req.flash("success", "Goodbye!");
   res.redirect("/campgrounds")
 })
 
