@@ -10,6 +10,6 @@ router.post("/", isLoggedIn, validateCampground, wrapAsync(campgrounds.create));
 router.get("/:id", wrapAsync(campgrounds.show));
 router.get("/:id/edit", isLoggedIn, isAuthor, wrapAsync(campgrounds.edit));
 router.put("/:id",isLoggedIn, validateCampground, isAuthor, wrapAsync(campgrounds.update));
-router.delete("/:id", isLoggedIn, isAuthor, wrapAsync());
+router.delete("/:id", isLoggedIn, isAuthor, wrapAsync(campgrounds.delete));
 
 module.exports = router;
