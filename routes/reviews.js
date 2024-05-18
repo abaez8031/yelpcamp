@@ -5,7 +5,7 @@ const Review = require("../models/Review");
 const Campground = require("../models/campground");
 
 const wrapAsync = require("../utils/wrapAsync");
-const { validateReview, isLoggedIn } = require("../middleware")
+const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware")
 
 router.post(
   "/",
@@ -25,6 +25,8 @@ router.post(
 
 router.delete(
   "/:reviewId",
+  isLoggedIn,
+  isReviewAuthor,
   wrapAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId }});
